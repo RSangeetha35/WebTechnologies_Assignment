@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            width: 50%;
+            max-width: 200px;
+            margin: 10px 0;
+            border: 2px solid #fff;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background-color: #ff5722;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #e64a19;
+            box-shadow: 2px 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        #result {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        #score {
+            font-size: 1.2rem;
+            color: #ffeb3b;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guess the Number</h1>
+    <input id="guessnumber" type="number" placeholder="Enter a number (1-10)" min="1" max="10">
+    <button onclick="check()">Check</button>
+    <p id="result"></p>
+    <p id="score">Score: 10</p>
+
+    <script>
+        var guessnumber = document.getElementById("guessnumber");
+        var result = document.getElementById("result");
+        var score = document.getElementById("score");
+
+        var totalscore = 10; // Initial score
+
+        function check() {
+            // Generate a new random number between 1 and 10 for each guess
+            var randomNumber = Math.floor(Math.random() * 10) + 1;
+
+            // Get the user's input and parse it as an integer
+            var enterednumber = parseInt(guessnumber.value);
+
+            if (enterednumber === randomNumber) {
+                result.textContent = "🎉 Correct! You guessed the number!";
+                result.style.color = "#4caf50"; // Green for correct
+                alert("🎉 YOU WON!");
+            } else {
+                totalscore -= 1; // Decrease score by 1
+                score.textContent = "Score: " + totalscore;
+
+                result.textContent = `❌ Wrong! The correct number was ${randomNumber}.`;
+                result.style.color = "#f44336"; // Red for wrong
+                alert("❌ YOU ARE WRONG.");
+            }
+
+            // End the game if score reaches 0
+            if (totalscore == 0) {
+                alert("Game Over! Better luck next time.");
+                location.reload(); 
+            }
+
+            
+            guessnumber.value = "";
+        }
+    </script>
+</body>
+</html>
